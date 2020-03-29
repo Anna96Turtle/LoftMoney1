@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="33dp"
+    android:paddingEnd="104dp"
+    tools:context=".skreens.second.SecondActivity">
+
+    <EditText
+        android:id="@+id/textSecondName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="127dp"
+        android:capitalize="sentences"
+        android:hint="@string/edittext_name_hint" />
+
+    <EditText
+        android:id="@+id/textSecondValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSecondName"
+        android:hint="@string/edittext_price_hint"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnSecondEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSecondValue"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="61dp"
+        android:background="@null"
+        android:text="@string/add_button_title"
+        android:textColor="@color/Add" />
+
+</RelativeLayout>
