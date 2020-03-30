@@ -8,4 +8,5 @@
     <color name="light_accent_text_color">#4a90e2</color>
     <color name="Add">#7ed321</color>
     <color name="divider_color">#353232</color>
+    <color name="activeTab">#ffffff</color>
 </resources>
