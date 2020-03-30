@@ -1,50 +1,54 @@
 package com.loftblog.loftmoney.skreens.main;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+
+import com.google.android.material.tabs.TabLayout;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.main.adapter.Item;
-import com.loftblog.loftmoney.skreens.main.adapter.ItemAdapter;
-import com.loftblog.loftmoney.skreens.second.SecondActivity;
+import com.loftblog.loftmoney.skreens.BudgetFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ItemAdapter itemAdapter = new ItemAdapter();
-    static int ADD_ITEM_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerMain);
-        recyclerView.setAdapter(itemAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,
-                false));
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
-        findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent secondIntent = new Intent(getApplicationContext(), SecondActivity.class);
-                startActivityForResult(secondIntent, ADD_ITEM_REQUEST);
-            }
-        });
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager.setAdapter(new BudgetPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setText(R.string.expences);
+        tabLayout.getTabAt(1).setText(R.string.income);
+        tabLayout.getTabAt(2).setText(R.string.balance);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    static class BudgetPagerAdapter extends FragmentPagerAdapter {
 
-        if (requestCode == ADD_ITEM_REQUEST && resultCode == RESULT_OK && data != null) {
-            Item item = (Item) data.getSerializableExtra(Item.KEY_NAME);
-            itemAdapter.addDataToTop(item);
+        public BudgetPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return new BudgetFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
         }
     }
 }
