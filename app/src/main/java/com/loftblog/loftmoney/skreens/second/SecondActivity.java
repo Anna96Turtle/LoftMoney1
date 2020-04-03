@@ -9,8 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.loftblog.loftmoney.R;
 import com.loftblog.loftmoney.skreens.main.adapter.Item;
+import com.loftblog.loftmoney.skreens.web.LoftApp;
+
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -31,14 +41,29 @@ public class SecondActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(value)) {return;}
 
-                String valueString = value + " Р";
-                Item item = new Item(name, valueString);
-
-                Intent intent = new Intent();
-                intent.putExtra(Item.KEY_NAME, item);
-                setResult(RESULT_OK, intent);
-                finish();
+                sendNewExpense(Integer.valueOf(textValue.getText().toString()),
+                        textName.getText().toString());
             }
         });
+    }
+
+    //Internal logic
+    private void sendNewExpense(Integer price, String name) {
+        Disposable disposable = LoftApp.getInstance().postApi().requect(price,name, "expence")
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Toast.makeText(getApplicationContext(), getString(R.string.massage_success), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(getApplicationContext(),throwable.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }

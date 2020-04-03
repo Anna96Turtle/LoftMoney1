@@ -6,5 +6,6 @@
     <string name="expences">РАСХОДЫ</string>
     <string name="income">ДОХОДЫ</string>
     <string name="balance">БАЛАНС</string>
+    <string name="massage_success">"Successfully added "</string>
 </resources>
 
