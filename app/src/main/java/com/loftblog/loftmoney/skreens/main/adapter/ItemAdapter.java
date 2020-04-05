@@ -15,10 +15,12 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
+    private List<Item> mDataList = new ArrayList<Item>();
+    private final int colorId;
 
-    private List<Item> mDataList = new ArrayList<>();
-    private static final int VIEW_TYPE_CHARGE = 0;
-    private static final int VIEW_TYPE_RATE = 1;
+    public ItemAdapter(final int colorId) {
+        this.colorId = colorId;
+    }
 
     public void setNewData(List<Item> newData) {
         mDataList.clear();
@@ -45,8 +47,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.bind(mDataList.get(position));
     }
 
+    public void addItem(Item item){
+        mDataList.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void clearItems(){
+        mDataList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() { return mDataList.size(); }
+
+    public int getColorId() {
+        return colorId;
+    }
 
     static class RateViewHolder extends RecyclerView.ViewHolder{
         public RateViewHolder (@NonNull View itemView) {super(itemView);}

@@ -3,7 +3,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,27 +26,86 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SecondActivity extends AppCompatActivity {
 
+    private EditText textName;
+    private EditText textValue;
+    private Button mButtonAdd;
+
+    private String mName;
+    private String mValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        final EditText textName = findViewById(R.id.textSecondName);
-        final EditText textValue = findViewById(R.id.textSecondValue);
-        Button buttonAdd = findViewById(R.id.btnSecondEnter);
+        textName = findViewById(R.id.textSecondName);
+        textName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    final CharSequence charSequence,
+                    final int start,
+                    final int count,
+                    final int after
+            ) {
+            }
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onTextChanged(
+                    final CharSequence charSequence,
+                    final int start,
+                    final int before,
+                    final int count
+            ) {
+            }
+
+            @Override
+            public void afterTextChanged(final Editable editable) {
+                mName = editable.toString();
+                checkEditTextHasText();
+            }
+        });
+
+        textValue = findViewById(R.id.textSecondValue);
+        textValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    final CharSequence charSequence,
+                    final int start,
+                    final int count,
+                    final int after
+            ) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    final CharSequence charSequence,
+                    final int start,
+                    final int before,
+                    final int count
+            ) {
+            }
+
+            @Override
+            public void afterTextChanged(final Editable editable) {
+                mValue = editable.toString();
+                checkEditTextHasText();
+            }
+        });
+
+        mButtonAdd = findViewById(R.id.btnSecondEnter);
+        mButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = textName.getText().toString();
-                String value = textValue.getText().toString();
 
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(value)) {return;}
-
+                if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mValue)) {return;}
                 sendNewExpense(Integer.valueOf(textValue.getText().toString()),
                         textName.getText().toString());
             }
         });
+    }
+
+    public void checkEditTextHasText() {
+    mButtonAdd.setEnabled(!TextUtils.isEmpty(mName) && !TextUtils.isEmpty(mValue));
     }
 
     //Internal logic

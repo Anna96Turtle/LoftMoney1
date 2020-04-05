@@ -1,12 +1,14 @@
 package com.loftblog.loftmoney.skreens.web;
 
+import android.app.Application;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoftApp {
+public class LoftApp extends Application {
 
     public static LoftApp instance = null;
     public static LoftApp getInstance(){
@@ -29,7 +31,7 @@ public class LoftApp {
 
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(okHttpClient);
-        builder.baseUrl("http://verdant-violet.glithch.me/");
+        builder.baseUrl("https://verdant-violet.glitch.me/");
         builder.addConverterFactory(GsonConverterFactory.create());
         builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         retrofit = builder

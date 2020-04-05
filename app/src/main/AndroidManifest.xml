@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".skreens.second.SecondActivity"/>
+        <activity android:name=".skreens.second.SecondActivity" android:theme="@style/AddItemTheme"/>
         <activity android:name=".skreens.web.LoftApp"/>
     </application>
 

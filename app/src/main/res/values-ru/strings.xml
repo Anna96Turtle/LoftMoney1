@@ -7,5 +7,6 @@
     <string name="income">ДОХОДЫ</string>
     <string name="balance">БАЛАНС</string>
     <string name="massage_success">"Successfully added "</string>
+    <string name="activity_main_toolbar_title">"Учёт Бюджета "</string>
 </resources>
 

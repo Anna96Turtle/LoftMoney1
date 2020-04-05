@@ -30,6 +30,9 @@ public class Item implements Serializable {
         this.visibility = View.VISIBLE;
     }
 
+    public Item(String name, String string, String price) {
+    }
+
     public String getId() { return id; }
 
     public void setVisibility(int  visibility){ this.visibility = visibility;}
@@ -44,4 +47,3 @@ public class Item implements Serializable {
         return value;
     }
 }
-
