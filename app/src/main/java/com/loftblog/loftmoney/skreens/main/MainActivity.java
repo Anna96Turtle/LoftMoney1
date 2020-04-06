@@ -26,9 +26,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-    private ItemAdapter itemAdapter = new ItemAdapter();
     static int ADD_ITEM_REQUEST = 1;
-    private List<Disposable> disposables = new ArrayList();
     public static final String TOKEN = "token";
 
     @Override
@@ -49,42 +47,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadItems();
-    }
-
-    @Override
-    protected void onStop() {
-        for (Disposable disposable : disposables) {
-            disposable.dispose();
-        }
-        super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    //Internal logic
-    private void loadItems() {
-        Disposable response = LoftApp.getInstance().api().request("expense")
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GetItemsResponseModel>() {
-                    @Override
-                    public void accept(GetItemsResponseModel getItemsResponseModel) throws Exception {
-                        List<Item> items = new ArrayList<>();
-                        for (ItemRemote itemRemote : getItemsResponseModel.getData()) {
-                            items.add(new Item(itemRemote));
-                        }
-                        itemAdapter.setNewData(items);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Toast.makeText(getApplicationContext(), throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        disposables.add(response);
     }
 }

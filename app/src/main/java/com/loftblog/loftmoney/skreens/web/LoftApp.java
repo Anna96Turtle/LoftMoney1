@@ -31,7 +31,7 @@ public class LoftApp extends Application {
 
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(okHttpClient);
-        builder.baseUrl("https://verdant-violet.glitch.me/");
+        builder.baseUrl("https://loftschool.com/android-api/basic/v1/");
         builder.addConverterFactory(GsonConverterFactory.create());
         builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         retrofit = builder

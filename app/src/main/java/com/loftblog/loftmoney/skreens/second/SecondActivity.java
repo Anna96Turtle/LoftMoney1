@@ -17,6 +17,9 @@ import com.loftblog.loftmoney.R;
 import com.loftblog.loftmoney.skreens.main.adapter.Item;
 import com.loftblog.loftmoney.skreens.web.LoftApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -29,7 +32,6 @@ public class SecondActivity extends AppCompatActivity {
     private EditText textName;
     private EditText textValue;
     private Button mButtonAdd;
-
     private String mName;
     private String mValue;
 
@@ -110,7 +112,7 @@ public class SecondActivity extends AppCompatActivity {
 
     //Internal logic
     private void sendNewExpense(Integer price, String name) {
-        Disposable disposable = LoftApp.getInstance().postApi().requect(price,name, "expence")
+        Disposable disposables = LoftApp.getInstance().postApi().requect(price,name, "expence")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
@@ -125,6 +127,8 @@ public class SecondActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),throwable.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
+            List<Disposable> disposables1 = new ArrayList();
+            disposables1.add(disposables);
 
     }
 }

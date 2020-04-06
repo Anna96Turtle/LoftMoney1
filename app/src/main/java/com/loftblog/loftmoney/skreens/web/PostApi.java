@@ -15,8 +15,8 @@ public interface PostApi {
     @POST("items/add")
     Call<Status> addItem(@Body Item request, @Query("auth-token") String token);
 
+    @POST("items/add")
     @FormUrlEncoded
     Completable requect(@Field("price") Integer price, @Field("name") String name,
                         @Field("type") String type);
-
 }

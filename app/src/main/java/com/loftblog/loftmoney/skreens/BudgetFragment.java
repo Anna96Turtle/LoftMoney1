@@ -12,7 +12,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.loftblog.loftmoney.R;
@@ -41,7 +40,7 @@ public class BudgetFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Api mApi;
     private PostApi mpApi;
-    
+
 
 
     @Override
@@ -136,9 +135,5 @@ public class BudgetFragment extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-//        if (requestCode == ADD_ITEM_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-//            Item item = (Item) data.getSerializableExtra(Item.KEY_NAME);
-//            mAdapter.addDataToTop(item);
-//        }
     }
 }
