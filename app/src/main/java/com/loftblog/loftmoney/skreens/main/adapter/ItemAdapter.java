@@ -14,16 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-    private List<Item> mDataList = new ArrayList<>();
+
+    private List<Item> mDataList = new ArrayList<Item>();
+    private final int colorId;
+
+    public ItemAdapter(final int colorId) {
+        this.colorId = colorId;
+    }
 
     public void setNewData(List<Item> newData) {
         mDataList.clear();
         mDataList.addAll(newData);
+        mDataList.get(mDataList.size()-1).setVisibility(View.GONE);
         notifyDataSetChanged();
     }
 
     public void addDataToTop(Item model) {
         mDataList.add(0, model);
+        mDataList.get(mDataList.size()-1).setVisibility(View.GONE);
         notifyItemInserted(0);
     }
 
@@ -39,9 +47,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.bind(mDataList.get(position));
     }
 
+    public void addItem(Item item){
+        mDataList.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void clearItem(){
+        mDataList.clear();
+        notifyDataSetChanged();
+    }
     @Override
-    public int getItemCount() {
-        return mDataList.size();
+    public int getItemCount() { return mDataList.size(); }
+
+    public int getColorId() {
+        return colorId;
+    }
+
+    static class RateViewHolder extends RecyclerView.ViewHolder{
+        public RateViewHolder (@NonNull View itemView) {super(itemView);}
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
