@@ -8,32 +8,42 @@
     android:paddingEnd="104dp"
     tools:context=".skreens.second.SecondActivity">
 
-    <EditText
-        android:id="@+id/textSecondName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="127dp"
-        android:capitalize="sentences"
-        android:hint="@string/edittext_name_hint" />
+        android:hint="@string/edittext_name_hint">
 
-    <EditText
-        android:id="@+id/textSecondValue"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textSecondName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textSecondName"
-        android:hint="@string/edittext_price_hint"
-        android:inputType="number" />
+        android:layout_marginTop="193dp"
+        android:hint="@string/edittext_price_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textSecondValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnSecondEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textSecondValue"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="61dp"
+        android:enabled="false"
+        android:drawableLeft="@drawable/check_selector"
         android:background="@null"
         android:text="@string/add_button_title"
-        android:textColor="@color/Add" />
+        android:textColor="@color/add_button_text_color_selector" />
 
 </RelativeLayout>
