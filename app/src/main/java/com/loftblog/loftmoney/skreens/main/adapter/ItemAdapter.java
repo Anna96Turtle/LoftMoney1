@@ -52,11 +52,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         notifyDataSetChanged();
     }
 
-    public void clearItems(){
+    public void clearItem(){
         mDataList.clear();
         notifyDataSetChanged();
     }
-
     @Override
     public int getItemCount() { return mDataList.size(); }
 

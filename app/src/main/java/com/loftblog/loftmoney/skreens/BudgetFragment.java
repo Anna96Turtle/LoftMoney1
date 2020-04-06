@@ -38,17 +38,16 @@ public class BudgetFragment extends Fragment {
     private static final String TYPE = "fragmentType";
 
     private ItemAdapter mAdapter;
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private Api mApi;
     private PostApi mpApi;
-    static int ADD_ITEM_REQUEST = 1;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    
+
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApi = ((LoftApp)getActivity().getApplication()).api();
-        loadItems();
     }
 
     @Nullable
@@ -62,7 +61,7 @@ public class BudgetFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                loadItems();
             }
         });
 
@@ -75,21 +74,8 @@ public class BudgetFragment extends Fragment {
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerMain);
-
-        mAdapter = new ItemAdapter(getArguments().getInt(COLOR_ID));
-        recyclerView.setAdapter(mAdapter);
-
-        view.findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent secondIntent = new Intent(getActivity(), SecondActivity.class);
-                startActivityForResult(secondIntent, ADD_ITEM_REQUEST);
-            }
-        });
         return view;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -137,6 +123,8 @@ public class BudgetFragment extends Fragment {
             public void onResponse(
                     final Call<List<Item>> call, final Response<List<Item>> response
             ) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.clearItem();
                 List<Item> items = response.body();
                 for (Item item : items) {
                     mAdapter.addItem(item);
@@ -145,7 +133,7 @@ public class BudgetFragment extends Fragment {
 
             @Override
             public void onFailure(final Call<List<Item>> call, final Throwable t) {
-
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 //        if (requestCode == ADD_ITEM_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
