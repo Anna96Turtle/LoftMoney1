@@ -11,4 +11,5 @@
     <color name="InActiveTab">#ffffff</color>
     <color name="colorIndicator">#ffc107</color>
     <color name="ActiveTab">#b38baaef</color>
+    <color name="blue_background_text_color">#ffffff</color>
 </resources>

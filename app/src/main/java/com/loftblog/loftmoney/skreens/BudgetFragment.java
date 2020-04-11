@@ -30,23 +30,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BudgetFragment extends Fragment {
+public class BudgetFragment extends Fragment  {
 
     private static final int REQUEST_CODE = 100;
     private static final String COLOR_ID = "colorId";
     private static final String TYPE = "fragmentType";
 
+//    private RecyclerView recyclerView;
+//    private CircularProgressView cpvLoader;
+//    private View notFound;
     private ItemAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Api mApi;
     private PostApi mpApi;
 
-
-
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.fragment_budget);
         mApi = ((LoftApp)getActivity().getApplication()).api();
+//        cpvLoader = findViewById(R.id.cpvMain);
+//        notFound = findViewById(R.id.llMainNoItem);
+
     }
 
     @Nullable
@@ -89,6 +94,9 @@ public class BudgetFragment extends Fragment {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             final String name = data.getStringExtra("name");
 
+//            SharedPreferences sharedPreferences = sharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+//            String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
             final String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
 
             Call<Status> call = mpApi.addItem(new Item(name, getArguments().getString(TYPE), price), token);
@@ -99,7 +107,7 @@ public class BudgetFragment extends Fragment {
                         final Call<Status> call, final Response<Status> response
                 ) {
                     if (response.body().getStatus().equals("success")) {
-                        mAdapter.addItem(new Item(name, realPrice));
+                        loadItems();
                     }
                 }
 
@@ -113,6 +121,9 @@ public class BudgetFragment extends Fragment {
     }
 
     public void loadItems() {
+//        SharedPreferences sharedPreferences = sharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+//        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
         final String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
 
         Call<List<Item>> items = mApi.getItems(getArguments().getString(TYPE), token);
@@ -136,4 +147,38 @@ public class BudgetFragment extends Fragment {
             }
         });
     }
+
+//    //MainViewState implementation
+//    @Override
+//    public void startLoading() {
+//    cpvLoader.setVisibility(View.VISIBLE);
+//    recyclerView.setVisibility(View.GONE);
+//    notFound.setVisibility(View.GONE);
+//    }
+//
+//    @Override
+//    public void setData(List<Item> items) {
+//        cpvLoader.setVisibility(View.GONE);
+//        recyclerView.setVisibility(View.VISIBLE);
+//        notFound.setVisibility(View.GONE);
+//
+//        itemAdapter.setNewData (items);
+//    }
+//
+//    @Override
+//    public void setError(String error) {
+//        cpvLoader.setVisibility(View.GONE);
+//        recyclerView.setVisibility(View.GONE);
+//        notFound.setVisibility(View.VISIBLE);
+//
+//        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+//    }
+//
+//    @Override
+//    public void setNoItems() {
+//        cpvLoader.setVisibility(View.GONE);
+//        recyclerView.setVisibility(View.GONE);
+//        notFound.setVisibility(View.VISIBLE);
+//
+//    }
 }

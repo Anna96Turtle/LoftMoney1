@@ -25,7 +25,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void setNewData(List<Item> newData) {
         mDataList.clear();
         mDataList.addAll(newData);
-        mDataList.get(mDataList.size()-1).setVisibility(View.GONE);
         notifyDataSetChanged();
     }
 

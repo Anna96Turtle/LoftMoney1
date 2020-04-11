@@ -1,31 +1,23 @@
 package com.loftblog.loftmoney.skreens.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.BudgetFragment;
-import com.loftblog.loftmoney.skreens.main.adapter.Item;
-import com.loftblog.loftmoney.skreens.main.adapter.ItemAdapter;
 import com.loftblog.loftmoney.skreens.second.SecondActivity;
-import com.loftblog.loftmoney.skreens.web.LoftApp;
-import com.loftblog.loftmoney.skreens.web.models.GetItemsResponseModel;
-import com.loftblog.loftmoney.skreens.web.models.ItemRemote;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<Disposable> disposables = new ArrayList<>();
     static int ADD_ITEM_REQUEST = 1;
     public static final String TOKEN = "token";
 
@@ -33,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        RecyclerView recyclerView = findViewById(R.id.recyclerMain);
+//        recyclerView.setAdapter(itemAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fabMain);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

@@ -7,5 +7,7 @@
     <string name="income">income</string>
     <string name="balance">balance</string>
     <string name="massage_success">"Successfully added "</string>
-    <string name="activity_main_toolbar_title">"Учёт Бюджета "</string>
+    <string name="activity_main_toolbar_title">"Loftmoney"</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="expense_not_found">Вы ещё не записали свои расходы. Нажмите на кнопку в углу, чтобы создать расход.</string>
 </resources>

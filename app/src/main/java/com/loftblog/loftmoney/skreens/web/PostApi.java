@@ -13,10 +13,8 @@ import retrofit2.http.Query;
 
 public interface PostApi {
     @POST("items/add")
-    Call<Status> addItem(@Body Item request, @Query("auth-token") String token);
-
-    @POST("items/add")
     @FormUrlEncoded
     Completable requect(@Field("price") Integer price, @Field("name") String name,
-                        @Field("type") String type);
+                        @Field("type") String type, String authToken);
+    Call<Status> addItem(@Body Item request, @Query("auth-token") String authToken);
 }

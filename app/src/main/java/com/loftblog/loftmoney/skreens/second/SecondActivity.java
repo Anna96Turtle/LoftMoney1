@@ -1,26 +1,24 @@
 package com.loftblog.loftmoney.skreens.second;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.main.adapter.Item;
 import com.loftblog.loftmoney.skreens.web.LoftApp;
+import com.loftblog.loftmoney.skreens.web.models.AuthResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -34,7 +32,7 @@ public class SecondActivity extends AppCompatActivity {
     private Button mButtonAdd;
     private String mName;
     private String mValue;
-
+    List<Disposable> disposables1 = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +109,20 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     //Internal logic
+    private void setLoading (Boolean state) {
+        textName.setEnabled(!state);
+        textValue.setEnabled(!state);
+        mButtonAdd.setVisibility(state ? View.GONE: View.VISIBLE);
+    }
+
     private void sendNewExpense(Integer price, String name) {
-        Disposable disposables = LoftApp.getInstance().postApi().requect(price,name, "expence")
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
+
+        setLoading(true);
+        Disposable disposables = LoftApp.getInstance()
+                .postApi()
+                .requect(price,name, "expence", authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
@@ -124,10 +134,11 @@ public class SecondActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        setLoading(false);
                         Toast.makeText(getApplicationContext(),throwable.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
-            List<Disposable> disposables1 = new ArrayList();
+
             disposables1.add(disposables);
 
     }

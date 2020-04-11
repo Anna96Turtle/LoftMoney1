@@ -11,38 +11,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoftApp extends Application {
 
     public static LoftApp instance = null;
-    public static LoftApp getInstance(){
-        if (instance == null){
+
+    public static LoftApp getInstance() {
+        if (instance == null) {
             instance = new LoftApp();
         }
         return instance;
     }
 
     private Retrofit retrofit;
-    private OkHttpClient okHttpClient;
 
-    private LoftApp(){
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
-        okHttpClient = new OkHttpClient.Builder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();
 
-        Retrofit.Builder builder = new Retrofit.Builder();
-        builder.client(okHttpClient);
-        builder.baseUrl("https://loftschool.com/android-api/basic/v1/");
-        builder.addConverterFactory(GsonConverterFactory.create());
-        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-        retrofit = builder
+        String baseUrl = "https://loftschool.com/android-api/basic/v1/";
+        retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
-    public Api api(){
-        return retrofit.create(Api.class);
-    }
-
-    public PostApi postApi(){
-        return retrofit.create(PostApi.class);
-    }
+    public Api api() { return retrofit.create(Api.class); }
+    public AuthRequest getAuthRequest() { return retrofit.create(AuthRequest.class); }
+    public PostApi postApi() { return retrofit.create(PostApi.class); }
 }
