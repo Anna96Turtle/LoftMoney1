@@ -1,50 +1,52 @@
 package com.loftblog.loftmoney.skreens.main;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.main.adapter.Item;
-import com.loftblog.loftmoney.skreens.main.adapter.ItemAdapter;
 import com.loftblog.loftmoney.skreens.second.SecondActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ItemAdapter itemAdapter = new ItemAdapter();
+    private List<Disposable> disposables = new ArrayList<>();
     static int ADD_ITEM_REQUEST = 1;
+    public static final String TOKEN = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerMain);
-        recyclerView.setAdapter(itemAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,
-                false));
+//        RecyclerView recyclerView = findViewById(R.id.recyclerMain);
+//        recyclerView.setAdapter(itemAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
-        findViewById(R.id.fabMain).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton floatingActionButton = findViewById(R.id.fabMain);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondIntent = new Intent(getApplicationContext(), SecondActivity.class);
+                Intent secondIntent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivityForResult(secondIntent, ADD_ITEM_REQUEST);
             }
         });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onResume() {
+        super.onResume();
+    }
 
-        if (requestCode == ADD_ITEM_REQUEST && resultCode == RESULT_OK && data != null) {
-            Item item = (Item) data.getSerializableExtra(Item.KEY_NAME);
-            itemAdapter.addDataToTop(item);
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
