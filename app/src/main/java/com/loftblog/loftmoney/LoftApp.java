@@ -1,6 +1,10 @@
-package com.loftblog.loftmoney.skreens.web;
+package com.loftblog.loftmoney;
 
 import android.app.Application;
+
+import com.loftblog.loftmoney.screens.web.AuthRequest;
+import com.loftblog.loftmoney.screens.web.GetApi;
+import com.loftblog.loftmoney.screens.web.PostApi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -10,15 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoftApp extends Application {
 
-    public static LoftApp instance = null;
-
-    public static LoftApp getInstance() {
-        if (instance == null) {
-            instance = new LoftApp();
-        }
-        return instance;
-    }
-
     private Retrofit retrofit;
 
     @Override
@@ -26,7 +21,7 @@ public class LoftApp extends Application {
         super.onCreate();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
@@ -41,7 +36,7 @@ public class LoftApp extends Application {
                 .build();
     }
 
-    public Api api() { return retrofit.create(Api.class); }
+    public GetApi api() { return retrofit.create(GetApi.class); }
     public AuthRequest getAuthRequest() { return retrofit.create(AuthRequest.class); }
     public PostApi postApi() { return retrofit.create(PostApi.class); }
 }

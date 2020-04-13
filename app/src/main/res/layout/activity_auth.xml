@@ -17,18 +17,19 @@
             android:layout_gravity="center_horizontal"/>
 
         <TextView
+            style="@style/ZeplinTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:layout_gravity="center_horizontal"
-            style="@style/ZeplinTextStyle" />
+            android:layout_marginTop="18dp"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/btfAuthSingIn"
+            style="@style/LoftButton"
             android:layout_width="130dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            style="@style/LoftButton"
             android:layout_marginTop="32dp"
             android:text="@string/action_sign_in_short"/>
     </LinearLayout>

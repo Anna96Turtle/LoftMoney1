@@ -12,4 +12,7 @@
     <color name="colorIndicator">#ffc107</color>
     <color name="ActiveTab">#b38baaef</color>
     <color name="blue_background_text_color">#ffffff</color>
+    <color name="medium_grey">#666664</color>
+    <color name="pale_orange">#ff9e57</color>
+    <color name="white_six">#efefef</color>
 </resources>

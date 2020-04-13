@@ -1,6 +1,6 @@
-package com.loftblog.loftmoney.skreens.web;
+package com.loftblog.loftmoney.screens.web;
 
-import com.loftblog.loftmoney.skreens.web.models.AuthResponse;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

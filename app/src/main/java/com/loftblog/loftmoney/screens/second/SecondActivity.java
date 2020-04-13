@@ -1,20 +1,22 @@
-package com.loftblog.loftmoney.skreens.second;
+package com.loftblog.loftmoney.screens.second;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.loftblog.loftmoney.LoftApp;
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.web.LoftApp;
-import com.loftblog.loftmoney.skreens.web.models.AuthResponse;
+import com.loftblog.loftmoney.screens.expenses.MoneyFragment;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,18 @@ public class SecondActivity extends AppCompatActivity {
     private Button mButtonAdd;
     private String mName;
     private String mValue;
+    private String type = "expense";
     List<Disposable> disposables1 = new ArrayList();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        if (getIntent() != null && getIntent().getExtras() !=null) {
+            type = getIntent().getExtras().getString(MoneyFragment.TYPE_KEY);
+        }
 
         textName = findViewById(R.id.textSecondName);
         textName.addTextChangedListener(new TextWatcher() {
@@ -68,20 +77,14 @@ public class SecondActivity extends AppCompatActivity {
         textValue = findViewById(R.id.textSecondValue);
         textValue.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(
-                    final CharSequence charSequence,
-                    final int start,
-                    final int count,
-                    final int after
+            public void beforeTextChanged(final CharSequence charSequence,
+                                          final int start, final int count, final int after
             ) {
             }
 
             @Override
-            public void onTextChanged(
-                    final CharSequence charSequence,
-                    final int start,
-                    final int before,
-                    final int count
+            public void onTextChanged(final CharSequence charSequence,
+                    final int start, final int before, final int count
             ) {
             }
 
@@ -120,9 +123,9 @@ public class SecondActivity extends AppCompatActivity {
         String authToken = sharedPreferences.getString(AuthResponse.AUTH_TOKEN_KEY, "");
 
         setLoading(true);
-        Disposable disposables = LoftApp.getInstance()
+        Disposable disposables = ((LoftApp)getApplication())
                 .postApi()
-                .requect(price,name, "expence", authToken)
+                .requect(price,name, type, authToken)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {

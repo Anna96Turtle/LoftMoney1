@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney.skreens.splash;
+package com.loftblog.loftmoney.screens.splash;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.authorisation.AuthActivity;
-import com.loftblog.loftmoney.skreens.main.MainActivity;
-import com.loftblog.loftmoney.skreens.web.models.AuthResponse;
+import com.loftblog.loftmoney.screens.authorisation.AuthActivity;
+import com.loftblog.loftmoney.screens.main.MainActivity;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
+
         finish();
     }
 }

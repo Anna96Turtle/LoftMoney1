@@ -1,7 +1,7 @@
-package com.loftblog.loftmoney.skreens.web;
+package com.loftblog.loftmoney.screens.web;
 
 import com.loftblog.loftmoney.Status;
-import com.loftblog.loftmoney.skreens.main.adapter.Item;
+import com.loftblog.loftmoney.common.money.adapter.MoneyModel;
 
 import io.reactivex.Completable;
 import retrofit2.Call;
@@ -15,6 +15,6 @@ public interface PostApi {
     @POST("items/add")
     @FormUrlEncoded
     Completable requect(@Field("price") Integer price, @Field("name") String name,
-                        @Field("type") String type, String authToken);
-    Call<Status> addItem(@Body Item request, @Query("auth-token") String authToken);
+                        @Field("type") String type,@Query("auth-token") String authToken);
+    Call<Status> addItem(@Body MoneyModel request, @Query("auth-token") String authToken);
 }

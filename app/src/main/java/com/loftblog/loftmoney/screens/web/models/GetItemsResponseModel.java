@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney.skreens.web.models;
+package com.loftblog.loftmoney.screens.web.models;
 
 import java.util.List;
 

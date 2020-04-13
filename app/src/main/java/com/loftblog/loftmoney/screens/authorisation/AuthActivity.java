@@ -1,4 +1,4 @@
-package com.loftblog.loftmoney.skreens.authorisation;
+package com.loftblog.loftmoney.screens.authorisation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.loftblog.loftmoney.R;
-import com.loftblog.loftmoney.skreens.main.MainActivity;
-import com.loftblog.loftmoney.skreens.web.LoftApp;
-import com.loftblog.loftmoney.skreens.web.models.AuthResponse;
+import com.loftblog.loftmoney.screens.main.MainActivity;
+import com.loftblog.loftmoney.LoftApp;
+import com.loftblog.loftmoney.screens.web.models.AuthResponse;
 
 import java.util.ArrayList;
 import java.util.List;
