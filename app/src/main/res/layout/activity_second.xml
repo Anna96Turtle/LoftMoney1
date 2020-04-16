@@ -42,7 +42,6 @@
         android:layout_marginTop="61dp"
         android:background="@null"
         android:drawableLeft="@drawable/check_selector"
-        android:enabled="false"
         android:text="@string/add_button_title"
         android:textColor="@color/add_button_text_color_selector" />
 

@@ -16,6 +16,20 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+//    @Override
+//    public void onActionModeStarted(final ActionMode mode) {
+//        super.onActionModeStarted(mode);
+//        mTabLayout.setBackgroundColor(ContextCompat.getColor(this,R.color.dark_gray_blue));
+//        mToolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.dark_gray_blue));
+//    }
+//
+//    @Override
+//    public void onActionModeFinished(final ActionMode mode) {
+//        super.onActionModeFinished(mode);
+//        mTabLayout.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
+//        mToolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimary));
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

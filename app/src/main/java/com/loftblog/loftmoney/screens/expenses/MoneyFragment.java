@@ -36,7 +36,7 @@ public class MoneyFragment extends Fragment implements MoneyViewState {
     private RecyclerView recyclerView;
     private CircularProgressView cpvLoader;
     private View notFound;
-    private static String type = "expense";
+    private  String type = "expense";
 
     public static MoneyFragment getInstance(String type) {
         MoneyFragment moneyFragment = new MoneyFragment();
